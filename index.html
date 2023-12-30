@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PigeonServer应用商店</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            transition: background-color 0.3s ease-in-out;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .switch {
+            margin-left: 10px;
+        }
+
+        label[for="switch"] {
+            margin-left: 5px;
+        }
+
+        .switch-input {
+            display: none;
+        }
+
+        .switch-label {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin-right: 10px;
+            background-color: #ccc;
+            border-radius: 34px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .switch-label:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .switch-input:checked+.switch-label {
+            background-color: #2196f3;
+        }
+
+        .switch-input:checked+.switch-label:before {
+            transform: translateX(26px);
+        }
+
+        .card {
+            display: inline-block;
+            width: 300px;
+            height: 400px;
+            margin: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+            background-color: #fff;
+            animation: fadeIn 0.5s ease-in-out;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: auto;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        /* 夜间模式样式 */
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .dark-mode .card {
+            background-color: #222;
+            box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .dark-mode .card:hover {
+            transform: scale(1.05);
+        }
+
+        .dark-mode .card-content {
+            color: #fff;
+        }
+
+        .dark-mode .footer {
+            background-color: #222;
+            color: #fff;
+            border-top: 1px solid #ccc;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 添加弹出框样式 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark-mode .modal {
+            background-color: #333;
+            color: #fff;
+            box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .footer {
+            background-color: #fff;
+            color: #333;
+            border-top: 1px solid #ccc;
+            text-align: center;
+            padding: 10px;
+            margin: 0 auto; /* 水平居中对齐 */
+        }
+
+        .dark-mode .footer {
+            background-color: #222;
+            color: #fff;
+            border-top: 1px solid transparent; /* 将底部边框颜色设置为透明 */
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+    <div class="header">
+        <h1>PigeonServer应用商店</h1>
+            <div class="buttons">
+            <div class="switch">
+                <input type="checkbox" id="switch" name="switch" class="switch-input">
+                <label for="switch" class="switch-label"></label>
+            </div>
+                <label for="switch">夜间模式</label>
+            </div>
+    </div>
+
+    <div class="card" data-modal-target="#modal1">
+        <div class="card-img">
+            <img src="https://via.placeholder.com/300x200" alt="">
+        </div>
+        <div class="card-content">
+            <h2>App Name 1</h2>
+            <p>App Description 1</p>
+        </div>
+    </div>
+
+    <div class="card" data-modal-target="#modal2">
+        <div class="card-img">
+            <img src="https://via.placeholder.com/300x200" alt="">
+        </div>
+        <div class="card-content">
+            <h2>App Name 2</h2>
+            <p>App Description 2</p>
+        </div>
+    </div>
+
+    <!-- 添加更多卡片 -->
+
+    </div>
+
+    <div class="overlay" id="modal1">
+        <div class="modal">
+            <h2>详细页面 - Whiteboard</h2>
+            <p>这个软件是一个白板绘画程序，你可以在上面进行任意的绘图操作。它具有以下功能：</p>
+            <p>①绘制：可以选择使用画笔或橡皮擦，在画布上进行自由绘制。</p>
+            <p>②选择颜色：可以选择不同的颜色进行绘制操作。</p>
+            <p>③调整笔的粗细和橡皮的大小：可以根据需要调整笔的粗细和橡皮的大小。</p>
+            <p>④绘制图形：可以绘制直线、虚线、矩形、三角形和圆形。</p>
+            <p>⑤保存图片：可以将绘制的图像保存为图片文件。</p>
+            <p>⑥抽奖功能：内置抽奖功能，可以导入参与者名单并进行抽奖。</p>
+            <p>⑦计时器：内置计时器功能，可以进行时间计数和倒计时操作。</p>
+            <p>①还提供了关于软件、直达官网等功能按钮，便于用户了解软件信息和获取最新版本。</p>
+        </div>
+    </div>
+
+    <div class="overlay" id="modal2">
+        <div class="modal">
+            <h2>详细页面 - App Name 2</h2>
+            <p>这是应用2的详细信息。</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        &copy; 2023 PigeonServer应用商店
+    </footer>
+
+    <script>
+        const switchBtn = document.querySelector(".switch-input");
+        const body = document.querySelector("body");
+
+        switchBtn.addEventListener("change", function () {
+            if (this.checked) {
+                body.classList.add("dark-mode");
+            } 
+            else {
+                body.classList.remove("dark-mode");
+            }
+        });
+
+        const cards = document.querySelectorAll(".card");
+        const overlays = document.querySelectorAll(".overlay");
+
+        cards.forEach((card) => {
+        card.addEventListener("click", function () {
+                const target = this.getAttribute("data-modal-target");
+                openModal(target);
+            });
+        });
+
+        overlays.forEach((overlay) => {
+            overlay.addEventListener("click", function (event) {
+                if (event.target === this) {
+                    closeModal(this);
+                }
+            });
+        });
+
+        function openModal(target) {
+            const overlay = document.querySelector(target);
+            overlay.style.display = "flex";
+        }
+
+        function closeModal(overlay) {
+            overlay.style.display = "none";
+        }
+    </script>
+</body>
+</html>
